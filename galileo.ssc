@@ -1,0 +1,100 @@
+//
+//Name: Observaciones de Galileo a Júpiter 
+//License: Public Domain
+//Author: Julian David Monsalve Sanchez
+//Version: 1.0
+//Description: Simulación de las observaciones de Galileo a Júpiter en Padua, Italia, en 1610.
+var i =1;
+function observacion(mes, dia, hora, minuto) {
+    core.waitFor(`1610-${mes}-${dia}T${hora}:${minuto}:00`, "local");
+    ScreenImageMgr.createScreenImage(`obs${i}`,`images/${i}.png`,390,510,0.65,true,1,0);
+    core.setTimeRate(1800);
+    LabelMgr.labelScreen("| |", 120, 120, true, 30, "#ffffff", true, 500);
+    mesStr = "";
+    switch (mes) {
+        case "01": mesStr = "Enero"; break;
+        case "02": mesStr = "Febrero"; break;
+        case "03": mesStr = "Marzo"; break;
+    }
+    if (hora < 12) {
+        LabelMgr.labelScreen(`Madrugada ${mesStr} ${dia}, 1610`, 380, 430, true, 40, "#ffffff", true, 3000);
+    } else {
+        LabelMgr.labelScreen(`${mesStr} ${dia}, 1610`, 540, 430, true, 40, "#ffffff", true, 3000);
+    }
+    core.wait(4); 
+    core.setTimeRate(18000);
+    LabelMgr.labelScreen("X10", 120, 120, true, 30, "#ffffff", true, 500);
+    ScreenImageMgr.deleteImage(`obs${i}`);
+    i++;
+}
+
+core.setGuiVisible(false)
+LandscapeMgr.setFlagAtmosphere(false);
+LandscapeMgr.setFlagLandscape(false);
+core.setObserverLocation(11.874576, 45.406743, 0);
+core.setDate("1610-01-07T01:00:00", "local");
+
+StelMovementMgr.setEquatorialMount(true);
+core.selectObjectByName("Jupiter", true);
+core.setSelectedObjectMarkerVisible(false);
+StelMovementMgr.setFlagTracking(true);
+StelMovementMgr.zoomTo(0.03,0);
+core.wait(2);
+StelMovementMgr.zoomTo(0.196,5);
+
+
+
+
+LabelMgr.labelScreen("Padua, Italia", 400, 100, true, 50, "#ffffff", true, 5000);
+core.setTimeRate(18000);
+
+
+// Observacion 1
+observacion("01", "07", "18", "30");
+
+// Observacion 2
+observacion("01", "08", "18", "30");
+
+// Observacion 3
+observacion("01", "10", "18", "00");
+
+// Observacion 4
+observacion("01", "11", "16", "20");
+
+// Observacion 5
+observacion("01", "12", "22", "00");
+
+// Observation 6
+observacion("01", "13", "16", "00");
+
+// Observacion 7
+observacion("01", "15", "20", "00");
+
+// Observacion 8
+observacion("01", "16", "01", "23");
+
+// Observacion 9
+observacion("01", "16", "20", "00");
+
+// Observacion 10
+observacion("01", "17", "19", "50");
+
+// Observacion 11
+observacion("01", "17", "21", "50");
+
+// Observacion 12
+observacion("01", "18", "17", "20");
+
+// Observacion 13
+observacion("01", "19", "16", "30");
+
+// Observacion 14
+observacion("01", "19", "21", "00");
+
+
+// Final
+core.wait(5);
+StelMovementMgr.zoomTo(0.03,5);
+core.wait(15);
+core.setGuiVisible(true);
+
